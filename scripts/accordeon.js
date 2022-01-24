@@ -1,21 +1,29 @@
 const accordeon = () => {
-  const chItems = document.querySelectorAll('.characteristics__item')
-
-  chItems.forEach(item => {
-    const chButton = item.querySelector('.characteristics__title')
-    const chContent = item.querySelector('.characteristics__description')
-
-    chButton.addEventListener('click', () => {
-      if(chContent.classList.contains('open')) {
-        chContent.style.height = ''
+  const closeContent = () => {
+    const activeButton = document.querySelector('.characteristics__title.active');
+    const openContent = document.querySelector('.characteristics__description.open');
+    if (activeButton) {
+      activeButton.classList.remove('active');
+    }
+    if (openContent) {
+      openContent.classList.remove('open');
+      openContent.style.height = '';
+    }
+  };
+  const charItem = document.querySelectorAll('.characteristics__item');
+  charItem.forEach((item) => {
+    const charButton = item.querySelector('.characteristics__title');
+    const charContent = item.querySelector('.characteristics__description');
+    charButton.addEventListener('click', () => {
+      if (charContent.classList.contains('open')) {
+        charContent.style.height = '';
       } else {
-        chContent.style.height = chContent.scrollHeight + 'px'
+        closeContent();
+        charContent.style.height = charContent.scrollHeight + 'px';
       }
-
-      chButton.classList.toggle('active')
-      chContent.classList.toggle('open')
-    })
-  })
-}
-
-accordeon()
+      charButton.classList.toggle('active');
+      charContent.classList.toggle('open');
+    });
+  });
+};
+accordeon();
